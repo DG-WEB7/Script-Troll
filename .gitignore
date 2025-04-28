@@ -1,41 +1,97 @@
-# Compiled Lua sources
-luac.out
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-# luarocks build files
-*.src.rock
-*.zip
-*.tar.gz
+local backgroundFrame = Instance.new("Frame")
+backgroundFrame.Parent = screenGui
+backgroundFrame.Size = UDim2.new(0, 500, 0, 300)
+backgroundFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+backgroundFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+backgroundFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+backgroundFrame.BorderSizePixel = 0
+backgroundFrame.Visible = true
 
-# Object files
-*.o
-*.os
-*.ko
-*.obj
-*.elf
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Parent = backgroundFrame
+minimizeButton.Size = UDim2.new(0, 30, 0, 30)
+minimizeButton.Position = UDim2.new(1, -35, 0, 5)
+minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+minimizeButton.Text = "-"
+minimizeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+minimizeButton.TextSize = 24
+minimizeButton.Font = Enum.Font.SourceSansBold
+minimizeButton.BorderSizePixel = 0
 
-# Precompiled Headers
-*.gch
-*.pch
+local openButton = Instance.new("TextButton")
+openButton.Parent = screenGui
+openButton.Size = UDim2.new(0, 40, 0, 40)
+openButton.Position = UDim2.new(0, 10, 0, 10)
+openButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+openButton.Text = "+"
+openButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+openButton.TextSize = 28
+openButton.Font = Enum.Font.SourceSansBold
+openButton.BorderSizePixel = 0
+openButton.Visible = false
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
-*.def
-*.exp
+local creatorLabel = Instance.new("TextLabel")
+creatorLabel.Parent = backgroundFrame
+creatorLabel.Size = UDim2.new(1, 0, 0, 30)
+creatorLabel.Position = UDim2.new(0, 0, 0, 10)
+creatorLabel.BackgroundTransparency = 1
+creatorLabel.Text = "Criador: DG WEB"
+creatorLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+creatorLabel.TextSize = 20
+creatorLabel.Font = Enum.Font.SourceSansBold
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+local reasonLabel = Instance.new("TextLabel")
+reasonLabel.Parent = backgroundFrame
+reasonLabel.Size = UDim2.new(1, 0, 0, 40)
+reasonLabel.Position = UDim2.new(0, 0, 0, 50)
+reasonLabel.BackgroundTransparency = 1
+reasonLabel.Text = "Adicionar motivo:"
+reasonLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+reasonLabel.TextSize = 28
+reasonLabel.Font = Enum.Font.SourceSansBold
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+local reasonBox = Instance.new("TextBox")
+reasonBox.Parent = backgroundFrame
+reasonBox.Size = UDim2.new(0, 400, 0, 50)
+reasonBox.Position = UDim2.new(0.5, 0, 0, 100)
+reasonBox.AnchorPoint = Vector2.new(0.5, 0)
+reasonBox.PlaceholderText = "Digite o motivo aqui"
+reasonBox.Text = ""
+reasonBox.TextSize = 24
+reasonBox.Font = Enum.Font.SourceSans
+reasonBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+reasonBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+reasonBox.BorderSizePixel = 0
 
+local kickAllButton = Instance.new("TextButton")
+kickAllButton.Parent = backgroundFrame
+kickAllButton.Size = UDim2.new(0, 400, 0, 60)
+kickAllButton.Position = UDim2.new(0.5, 0, 0, 170)
+kickAllButton.AnchorPoint = Vector2.new(0.5, 0)
+kickAllButton.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+kickAllButton.Text = "EXPULSAR TODOS"
+kickAllButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+kickAllButton.TextSize = 32
+kickAllButton.Font = Enum.Font.SourceSansBold
+kickAllButton.BorderSizePixel = 0
+
+kickAllButton.MouseButton1Click:Connect(function()
+    local motivo = reasonBox.Text
+    if motivo == "" then
+        motivo = "Nenhum motivo informado."
+    end
+    game.Players.LocalPlayer:Kick(motivo)
+end)
+
+minimizeButton.MouseButton1Click:Connect(function()
+    backgroundFrame.Visible = false
+    openButton.Visible = true
+end)
+
+openButton.MouseButton1Click:Connect(function()
+    backgroundFrame.Visible = true
+    openButton.Visible = false
+end)
